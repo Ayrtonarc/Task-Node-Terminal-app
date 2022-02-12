@@ -1,8 +1,11 @@
+const { resolve } = require('path');
+
 require ('colors');
 
 const mostrarMenu = () => {
 
-    console.clear();
+        return new Promise( resolve => {
+            console.clear();
     console.log('========================');
     console.log(' seleccione opcion');
     console.log('========================\n');
@@ -22,24 +25,34 @@ const mostrarMenu = () => {
         output: process.stdout
     });
 
-    readline.question('Seleccione un aopcion', (opt) => {
-        console.log({ opt });
+    readline.question('Seleccione un opcion', (opt) => {
         readline.close();
+        resolve(opt);
     });
+        
+});   
+
+
+    
 
   
 }
 
 const pauseX = () => {
-    const readline = require('readline').createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
 
-    readline.question(`\nPresione ${'ENTER'} para continuar`, (opt) => {
-        console.log({ opt });
-        readline.close();
+    return new Promise( resolve => {
+        const readline = require('readline').createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+    
+        readline.question(`\nPresione ${'ENTER'} para continuar`, (opt) => {
+            readline.close();
+            resolve();
+        });
     });
+    
+   
 }
 
 module.exports = {
