@@ -1,6 +1,6 @@
 
 
-const { inquirerMenu } = require('./helpers/inquirer');
+const { inquirerMenu, leerInput } = require('./helpers/inquirer');
 const { pauseX } = require('./helpers/mensajes');
 const  Tarea = require('./models/tarea');
 const Tareas = require('./models/tareas');
@@ -15,16 +15,22 @@ const main = async() => {
     console.log("Hola Mundo");
 
     let opt = '';
+    const tareas = new Tareas();
 
     do{
-       // opt = await inquirerMenu();
-       // console.log({opt});
-        const tareas = new Tareas('adquirir com');
-        const tarea = new Tarea('comprar comida');
+       opt = await inquirerMenu();
+       
+       switch (opt){
+        case '1':
+            //crear option
+            const desc = await leerInput('Descripcion: ');
+            tareas.crearTarea(desc);
+       break;
 
-        tareas._listado[tarea.id] = tarea;
-
-        console.log(tareas);        
+       case '2':
+            console.log( tareas._listado);
+       break;
+    }
         await pauseX();
      
     }while( opt !== '0');
